@@ -10,6 +10,7 @@ namespace ConsoleApp1
 {
     class Program
     {
+        [STAThread]   //加这个属性，创建并进入单元
         static void Main(string[] args)
         {
             //Console.WriteLine(new BigInteger(new byte[] { 22, 2, 3 }));
@@ -39,6 +40,12 @@ namespace ConsoleApp1
                             //deciphering;
                             //解密
                             ECCMain.Deciphering.Decrypt();
+                        }; break;
+                    case "T":
+                        {
+                            //bool s;
+                            //var p = EditWin.GetSavePath.Get(out s);
+                            //Console.WriteLine($"{p}");
                         }; break;
                     //case "N":
                     //    {

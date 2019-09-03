@@ -67,8 +67,10 @@ namespace ECCMain
             byte[] bytes;
 
             {
-                string itemPath = $@"F:\工作\201909\DLQU0968.Sec";
+                Console.WriteLine($"输入文件名，拖入文件即可");
 
+                string itemPath = Console.ReadLine(); ;
+                string fileDic = System.IO.Path.GetDirectoryName(itemPath);
                 {
                     using (FileStream fs = new FileStream(itemPath, FileMode.Open, System.IO.FileAccess.Read, FileShare.Read))
                     {
@@ -183,6 +185,7 @@ namespace ECCMain
 
                     }
                     int fileNameLength;
+                    string fileName;
                     {
                         byte fileNameLengthbyte = bytes[position++];
                         fileNameLength = Convert.ToInt32(fileNameLengthbyte);
@@ -197,7 +200,7 @@ namespace ECCMain
                         position += fileNameLength;
 
 
-                        var fileName = UTF8Encoding.UTF8.GetString(fileNameArray);
+                        fileName = UTF8Encoding.UTF8.GetString(fileNameArray);
                         Console.WriteLine($"文件名为：{fileName}");
                     }
                     int remarkLength;
@@ -357,13 +360,25 @@ namespace ECCMain
                                 var realByte = secretToOriginCode[secretByte][sheetIndex];
                                 sum += Convert.ToInt32(realByte);
                                 fileBinary[i] = realByte;
-                            } 
+                            }
                         }
                         //5HpHagT65TZzG1PH3CSu63k8DbpvD8s5ip4nEB3kEsrefaQ4Ksw
-                        {
-                            string itemPathOut = $@"F:\工作\201909\DLQU0968N.MP4";
-                            System.IO.File.WriteAllBytes(itemPathOut, fileBinary);
-                            Console.WriteLine("文件加密成功！！！");
+                        { 
+                            {
+                                for (int i = 0; i < 100; i++)
+                                {
+                                    var filePathOut = $@"{fileDic}\N{i}{fileName}";
+                                    if (File.Exists(filePathOut)) { }
+                                    else
+                                    {
+                                        System.IO.File.WriteAllBytes(filePathOut, fileBinary);
+                                        Console.WriteLine("文件解密成功！！！");
+                                        break;
+                                    }
+                                }
+                            }
+
+
                         }
                     }
                     else
