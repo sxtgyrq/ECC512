@@ -151,6 +151,27 @@ namespace ECCMain
             return y;
         }
 
+
+        internal static BigInteger Pow(BigInteger index, BigInteger @base)
+        {
+            var r = get(index);
+            var y = @base % Secp256k1.p;
+            var yy = @base % Secp256k1.p;
+            // var baseP = new BigInteger(1);
+            //bool isZero = false;
+            //var r = get((ECCMain.Secp256k1.p + 1) / 4);
+            for (int i = 0; i < r.Length; i++)
+            {
+                if (!r[i])
+                {
+                    y = (y * @base) % Secp256k1.p;
+                }
+                yy = (yy * yy) % Secp256k1.p;
+
+            }
+            return y;
+        }
+
         private const string Digits = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
         public static string Encode(byte[] data)
         {

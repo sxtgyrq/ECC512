@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECCMain", "ECCMain\ECCMain.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToJson", "ToJson\ToJson.csproj", "{81A61F22-3DFF-4BEA-A61B-C3AF5CDA0272}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormSecret", "FormSecret\FormSecret.csproj", "{35030CDE-5213-4141-A0F6-D986E96CF619}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{81A61F22-3DFF-4BEA-A61B-C3AF5CDA0272}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81A61F22-3DFF-4BEA-A61B-C3AF5CDA0272}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81A61F22-3DFF-4BEA-A61B-C3AF5CDA0272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35030CDE-5213-4141-A0F6-D986E96CF619}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35030CDE-5213-4141-A0F6-D986E96CF619}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35030CDE-5213-4141-A0F6-D986E96CF619}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35030CDE-5213-4141-A0F6-D986E96CF619}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

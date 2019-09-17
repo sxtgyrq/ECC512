@@ -14,6 +14,7 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             //Console.WriteLine(new BigInteger(new byte[] { 22, 2, 3 }));
+            Console.WriteLine($"版本号0.9");
             Console.WriteLine(ECCMain.Secp256k1.p % 4);
             Console.WriteLine((ECCMain.Secp256k1.p + 1) / 4);
             while (true)
@@ -46,6 +47,14 @@ namespace ConsoleApp1
                             //bool s;
                             //var p = EditWin.GetSavePath.Get(out s);
                             //Console.WriteLine($"{p}");
+                        }; break;
+                    case "SIGN":
+                        {
+                            ECCMain.Sign.SignMessage();
+                        }; break;
+                    case "VERIFY":
+                        {
+                            Console.WriteLine(ECCMain.Sign.verify_message(Console.ReadLine(), Console.ReadLine(), 0));
                         }; break;
                     //case "N":
                     //    {

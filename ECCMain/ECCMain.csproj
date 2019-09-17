@@ -46,10 +46,12 @@
     <Compile Include="Calculate.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Deciphering.cs" />
+    <Compile Include="Format.cs" />
     <Compile Include="Hex.cs" />
     <Compile Include="HexToBigInteger.cs" />
     <Compile Include="HexToByteArray.cs" />
     <Compile Include="Inverse.cs" />
+    <Compile Include="LockAndKeyRead.cs" />
     <Compile Include="MainParameter.cs" />
     <Compile Include="PrivateKeyF.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

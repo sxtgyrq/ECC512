@@ -93,11 +93,17 @@ namespace ECCMain
                             if (Bytes32.ByteArrayEqual(hash1, hashCode))
                             {
                                 Console.WriteLine($"文件哈希验证成功");
+
                             }
                             else
                             {
-                                Console.WriteLine($"文件哈希验证不成功");
-                                return;
+                                Console.WriteLine($"文件哈希验证不成功,输入y/Y表示继续");
+                                var y = Console.ReadLine().Trim();
+                                if (y.ToLower() == "y") { }
+                                else
+                                {
+                                    return;
+                                }
                             }
                             var rNum = Bytes32.ConvetToBigInteger(r);
                             var sNum = Bytes32.ConvetToBigInteger(s);
@@ -120,8 +126,14 @@ namespace ECCMain
                             }
                             else
                             {
-                                Console.WriteLine($"校验成功，签名不成功！");
-                                return;
+                                Console.WriteLine($"校验成功，签名不成功！输入y/Y表示继续；");
+                                //return; 
+                                var y = Console.ReadLine().Trim();
+                                if (y.ToLower() == "y") { }
+                                else
+                                {
+                                    return;
+                                }
                             }
 
                         };
@@ -180,7 +192,7 @@ namespace ECCMain
                         var walletOfUncompressed = PublicKeyF.GetAddressOfUncompressed(publicKeyOwner);
                         //Console.WriteLine($"非压缩钱包地址为：{walletOfUncompressed}");
                         //    Console.WriteLine($"校验成功，签名来自{walletOfcompressed}或{walletOfUncompressed}！");
-                        notifyMsg = $"输入地址{walletOfUncompressed}或地址{walletOfOwner}的私钥！";
+                        notifyMsg = $"输入拖入地址{walletOfUncompressed}或地址{walletOfOwner}的私钥，钥匙.txt！";
 
 
                     }
@@ -219,7 +231,8 @@ namespace ECCMain
                     System.Numerics.BigInteger privateBigInteger;
                     {
                         Console.WriteLine(notifyMsg);
-                        var privateKeyOfSender = Console.ReadLine();
+
+                        var privateKeyOfSender = LockAndKeyRead.Get(Console.ReadLine());
 
                         if (PrivateKeyF.Check(privateKeyOfSender, out privateBigInteger)) { }
                         else
@@ -363,7 +376,7 @@ namespace ECCMain
                             }
                         }
                         //5HpHagT65TZzG1PH3CSu63k8DbpvD8s5ip4nEB3kEsrefaQ4Ksw
-                        { 
+                        {
                             {
                                 for (int i = 0; i < 100; i++)
                                 {
