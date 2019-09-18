@@ -931,7 +931,7 @@ namespace ECCMain
             }
         }
 
-        private static void dealWithData(FileStream nFile, ref long position, byte[] bytesOfTitle)
+        static void dealWithData(FileStream nFile, ref long position, byte[] bytesOfTitle)
         {
             nFile.Seek(position, SeekOrigin.Begin);
             nFile.Write(bytesOfTitle, 0, bytesOfTitle.Length);

@@ -14,7 +14,7 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             //Console.WriteLine(new BigInteger(new byte[] { 22, 2, 3 }));
-            Console.WriteLine($"版本号0.9");
+            Console.WriteLine($"版本号1.1");
             Console.WriteLine(ECCMain.Secp256k1.p % 4);
             Console.WriteLine((ECCMain.Secp256k1.p + 1) / 4);
             while (true)
