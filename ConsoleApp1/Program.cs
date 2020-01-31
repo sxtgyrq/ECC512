@@ -36,11 +36,23 @@ namespace ConsoleApp1
                                 () => Console.ReadLine(),
                                 (a) => Console.WriteLine(a));
                         }; break;
+                    case "SS":
+                        {
+
+                            ECCMain.PublicKeyComPress.ComPressFiles(() => Console.ReadLine(),
+                                (a) => Console.WriteLine(a));
+                        }; break;
                     case "D":
                         {
                             //deciphering;
                             //解密
                             ECCMain.Deciphering.Decrypt();
+                        }; break;
+                    case "DD":
+                        {
+                            //deciphering;
+                            //解密
+                            ECCMain.Deciphering.DecryptFiles();
                         }; break;
                     case "T":
                         {
@@ -54,6 +66,11 @@ namespace ConsoleApp1
                         }; break;
                     case "VERIFY":
                         {
+
+                            var a = "HGckL6gXSN4BgS4dg8edS2R7kA5GK/34nFDLm4bqS/gUvN/lPL/uIc55jnLQ3N5qF4L8wyFKQi3RJFMNVdStxl8=";
+                            var b = "啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊140啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊140";
+                            var c = ECCMain.Sign.verify_message(a, b, 0);
+                            Console.WriteLine($"{c}");
                             Console.WriteLine(ECCMain.Sign.verify_message(Console.ReadLine(), Console.ReadLine(), 0));
                         }; break;
                     //case "N":
@@ -64,6 +81,10 @@ namespace ConsoleApp1
                         {
                             return;
                         }; ;
+                    case "GET":
+                        {
+                            ECCMain.GetByName.Get();
+                        }; break;
                     default:
                         {
 

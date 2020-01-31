@@ -69,8 +69,11 @@ namespace ECCMain
 
             //byte[] chechHash = Calculate.GetCheckSum(resultAdd);
         }
-
         internal static string GetAddressOfcompressed(BigInteger[] publicKey)
+        {
+            return GetAddressOfcompressed(publicKey, true);
+        }
+        internal static string GetAddressOfcompressed(BigInteger[] publicKey, bool show)
         {
             var publicKeyArray1 = HexToByteArray.BigIntegerTo32ByteArray(publicKey[0]);
             HexToByteArray.ChangeDirection(ref publicKeyArray1);
@@ -82,7 +85,8 @@ namespace ECCMain
             else
                 resultAdd = Calculate.BiteSplitJoint(new byte[] { 0x03 }, publicKeyArray1);
 
-            Console.WriteLine($"压缩公钥为{ Hex.BytesToHex(resultAdd)}");
+            if (show)
+                Console.WriteLine($"压缩公钥为{ Hex.BytesToHex(resultAdd)}");
             //   Console.WriteLine($"压缩公钥为{ Calculate.Encode(resultAdd)}");
 
             var step3 = ripemd160.ComputeHash(sha256.ComputeHash(resultAdd));

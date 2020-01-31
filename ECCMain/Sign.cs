@@ -209,7 +209,7 @@ namespace ECCMain
         static byte[] msg_bytes(string message)
         {
             var b = Encoding.UTF8.GetBytes(message);
-            return msg_numToVarInt(message.Length).Concat(b).ToArray();
+            return msg_numToVarInt(b.Length).Concat(b).ToArray();
         }
 
         public static string verify_message(string signature, string message, int addrtype)
