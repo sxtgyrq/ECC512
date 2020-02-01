@@ -30,7 +30,7 @@ namespace ConsoleApp1
                 }
                 else
                 {
-                    md5s.Add(md5s[md5], files[indexOfFileForCompressing].FullName);
+                    md5s.Add(md5, files[indexOfFileForCompressing].FullName);
                 }
             }
         }
