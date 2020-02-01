@@ -977,7 +977,7 @@ namespace ECCMain
                                             dealWithData(fs, ref position, s2);
 
                                             var infomationOfSecretText = Hex.BytesToHex(s1);
-                                            Console.WriteLine($"{i}压缩公钥为{infomationOfSecretText}");
+                                            //Console.WriteLine($"{i}压缩公钥为{infomationOfSecretText}");
 
                                             bool isZero;
                                             var C1 = GetXYByByte33(s1, out isRight);
@@ -1082,15 +1082,20 @@ namespace ECCMain
                                         ToJson.Class1.Show(secretToOriginCode);
                                         long sum = 0;
                                         string filePathOut = "";
-                                        for (int i = 0; i < 1000; i++)
+                                        filePathOut = $@"{fileDic}\{fileName}";
+                                        if (File.Exists(filePathOut))
                                         {
-                                            filePathOut = $@"{fileDic}\N{i}{fileName}";
-                                            if (File.Exists(filePathOut)) { }
-                                            else
+                                            for (int i = 0; i < 1000; i++)
                                             {
-                                                break;
+                                                filePathOut = $@"{fileDic}\N{i}{fileName}";
+                                                if (File.Exists(filePathOut)) { }
+                                                else
+                                                {
+                                                    break;
+                                                }
                                             }
                                         }
+
                                         if (string.IsNullOrEmpty(filePathOut))
                                         {
                                             Console.WriteLine($"解压错误");
@@ -1306,6 +1311,31 @@ namespace ECCMain
                 }
             }
 
+        }
+
+
+        public static string GetMD5HashFromFile(string fileName)
+        {
+            try
+            {
+                using (FileStream file = new FileStream(fileName, FileMode.Open))
+                {
+                    using (System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider())
+                    {
+                        byte[] retVal = md5.ComputeHash(file);
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < retVal.Length; i++)
+                        {
+                            sb.Append(retVal[i].ToString("x2"));
+                        }
+                        return sb.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetMD5HashFromFile() fail,error:" + ex.Message);
+            }
         }
 
         public static void Decrypt2()
@@ -1678,17 +1708,27 @@ namespace ECCMain
                         //5HpHagT65TZzG1PH3CSu63k8DbpvD8s5ip4nEB3kEsrefaQ4Ksw
                         {
                             {
-                                for (int i = 0; i < 100; i++)
+                                var filePathOut = $@"{fileDic}\{fileName}";
+                                if (File.Exists(filePathOut))
                                 {
-                                    var filePathOut = $@"{fileDic}\N{i}{fileName}";
-                                    if (File.Exists(filePathOut)) { }
-                                    else
+                                    for (int i = 0; i < 100; i++)
                                     {
-                                        System.IO.File.WriteAllBytes(filePathOut, fileBinary);
-                                        Console.WriteLine("文件解密成功！！！");
-                                        break;
+                                        filePathOut = $@"{fileDic}\N{i}{fileName}";
+                                        if (File.Exists(filePathOut)) { }
+                                        else
+                                        {
+                                            System.IO.File.WriteAllBytes(filePathOut, fileBinary);
+                                            Console.WriteLine("文件解密成功！！！");
+                                            break;
+                                        }
                                     }
                                 }
+                                else
+                                {
+                                    System.IO.File.WriteAllBytes(filePathOut, fileBinary);
+                                    Console.WriteLine("文件解密成功！！！");
+                                }
+
                             }
 
 

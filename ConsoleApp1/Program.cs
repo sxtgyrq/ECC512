@@ -85,6 +85,10 @@ namespace ConsoleApp1
                         {
                             ECCMain.GetByName.Get();
                         }; break;
+                    case "CHECKONLY":
+                        {
+                            CheckOnly.Check();
+                        }; break;
                     default:
                         {
 

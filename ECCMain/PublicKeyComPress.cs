@@ -649,14 +649,22 @@ namespace ECCMain
                             {
                                 continue;
                             }
-                            
+
+                            string itemPath = files[indexOfFileForCompressing].FullName;
+                            var md5 = GetMD5HashFromFile(files[indexOfFileForCompressing].FullName);
+                            directoryName = System.IO.Path.GetDirectoryName(itemPath);
+                            string outPutFilePath = $@"{directoryName}\{md5}.secr";
+                            if (File.Exists(outPutFilePath))
+                            {
+                                continue;
+                            }
                             //output("输入路径！！！");
                             //if (Console.ReadLine().Trim().ToUpper() == "N")
                             //{
                             //    continue;
                             //}
 
-                            string itemPath = files[indexOfFileForCompressing].FullName;// $@"F:\工作\201909\DLQU0968.MP4";// Console.ReadLine();//
+                            // $@"F:\工作\201909\DLQU0968.MP4";// Console.ReadLine();//
 
                             string fileName;
                             byte[] fileNameBytes;
@@ -681,7 +689,7 @@ namespace ECCMain
                                 output($"请输入文件的备注(最大65535字节，2W+汉字)。输入空字符串结束！");
                                 while (true)
                                 {
-                                    var inputSelect ="ccc";
+                                    var inputSelect = "ccc";
                                     //if (string.IsNullOrEmpty(inputSelect))
                                     //{
                                     //    output($"输入C/c(continue),继续输入。其他键退出");
@@ -733,7 +741,7 @@ namespace ECCMain
                                 //    + 32 //s
                                 //    + 33 //PublicKey
                                 //    ];// 
-                                string outPutFilePath = $@"{directoryName}\{fileNameWithoutExtension}.secr";
+                                // string outPutFilePath = $@"{directoryName}\{fileNameWithoutExtension}.secr";
                                 using (FileStream nFile = new FileStream(outPutFilePath, FileMode.Create))
                                 {
                                     long position = 0;
@@ -1252,6 +1260,30 @@ namespace ECCMain
             //        return;
             //    }
             //}
+        }
+
+        public static string GetMD5HashFromFile(string fileName)
+        {
+            try
+            {
+                using (FileStream file = new FileStream(fileName, FileMode.Open))
+                {
+                    using (System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider())
+                    {
+                        byte[] retVal = md5.ComputeHash(file);
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < retVal.Length; i++)
+                        {
+                            sb.Append(retVal[i].ToString("x2"));
+                        }
+                        return sb.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetMD5HashFromFile() fail,error:" + ex.Message);
+            }
         }
 
         public static void ComPress2(inputIntoComPress input, outPutFromComPress output)
