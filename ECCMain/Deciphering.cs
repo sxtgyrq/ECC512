@@ -1318,6 +1318,7 @@ namespace ECCMain
         {
             try
             {
+
                 using (FileStream file = new FileStream(fileName, FileMode.Open))
                 {
                     using (System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider())
