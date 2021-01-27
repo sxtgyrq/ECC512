@@ -10,7 +10,7 @@ namespace ECCMain
 {
     public class Calculate
     {
-        internal static BigInteger[] getPublicByPrivate(BigInteger privateKey)
+        public static BigInteger[] getPublicByPrivate(BigInteger privateKey)
         {
             if (privateKey > 0)
             {

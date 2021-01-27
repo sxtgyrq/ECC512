@@ -32,7 +32,7 @@ namespace ECCMain
         }
         private static readonly RIPEMD160Managed ripemd160 = new RIPEMD160Managed();
         private static readonly SHA256 sha256 = new SHA256Managed();
-        internal static string GetAddressOfUncompressed(BigInteger[] publicKey)
+        public static string GetAddressOfUncompressed(BigInteger[] publicKey)
         {
 
 
@@ -69,11 +69,11 @@ namespace ECCMain
 
             //byte[] chechHash = Calculate.GetCheckSum(resultAdd);
         }
-        internal static string GetAddressOfcompressed(BigInteger[] publicKey)
+        public static string GetAddressOfcompressed(BigInteger[] publicKey)
         {
             return GetAddressOfcompressed(publicKey, true);
         }
-        internal static string GetAddressOfcompressed(BigInteger[] publicKey, bool show)
+        public static string GetAddressOfcompressed(BigInteger[] publicKey, bool show)
         {
             var publicKeyArray1 = HexToByteArray.BigIntegerTo32ByteArray(publicKey[0]);
             HexToByteArray.ChangeDirection(ref publicKeyArray1);

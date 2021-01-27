@@ -9,7 +9,7 @@ namespace ECCMain
 {
     public class Bytes32
     {
-        internal static BigInteger ConvetToBigInteger(byte[] hash1)
+        public static BigInteger ConvetToBigInteger(byte[] hash1)
         {
             BigInteger result = 0;
             for (var i = 0; i < hash1.Length; i++)
