@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="EccGetSqrt.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="EccGetSqrt.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="RIPEMD" Version="4.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\ToJson_Core\ToJson_Core.csproj" />
+	</ItemGroup>
+
+</Project>

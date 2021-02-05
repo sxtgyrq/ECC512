@@ -54,6 +54,7 @@
     <Compile Include="LockAndKeyRead.cs" />
     <Compile Include="MainParameter.cs" />
     <Compile Include="PrivateKeyF.cs" />
+    <Compile Include="Produce10000.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicKeyComPress.cs" />
     <Compile Include="PublicKeyF.cs" />
