@@ -10,6 +10,13 @@ namespace ECCMain
         {
             Console.WriteLine($"输入助记词！");
             var word = Console.ReadLine();
+            string lastC = "";
+            if (word != null && word.Length > 0)
+            {
+                lastC = word[word.Length - 1].ToString();
+            }
+            StringBuilder sb = new StringBuilder();
+            StringBuilder sb_Private = new StringBuilder();
             for (int i = 0; i < 10000; i++)
             {
                 //Console.WriteLine($"输入助记词！");
@@ -34,13 +41,17 @@ namespace ECCMain
                     // Console.WriteLine($"您压缩后的私钥为{privateKey1}");
                 }
                 var publicKey = Calculate.getPublicByPrivate(privateKey);
-                string walletOfcompressed;
+                string walletOfP2SH;
                 if (publicKey != null)
                 {
-                    walletOfcompressed = PublicKeyF.GetAddressOfcompressed(publicKey);
+                    walletOfP2SH = PublicKeyF.GetAddressOfP2SH(publicKey);
+                    Console.WriteLine($"P2SH钱包地址为:{walletOfP2SH}");
+                    sb.Append($"{lastC}{i.ToString("D4")},{walletOfP2SH}{Environment.NewLine}");
                     // Console.WriteLine($"压缩钱包地址为：{walletOfcompressed}");
-                    Console.WriteLine($"{i}_{privateKey1}_{walletOfcompressed}");
-                    File.WriteAllText($"A{i.ToString("D4")}.txt", walletOfcompressed);
+                    Console.WriteLine($"{i}_p2wpkh-p2sh:{privateKey1}_{walletOfP2SH}");
+
+                    sb_Private.Append($"p2wpkh-p2sh:{privateKey1}{Environment.NewLine}");
+                    // File.WriteAllText($"A{i.ToString("D4")}.txt", walletOfcompressed);
                 }
                 else
                 {
@@ -49,7 +60,8 @@ namespace ECCMain
                 }
 
             }
-
+            File.WriteAllText($"Wallet{lastC}.txt", sb.ToString());
+            File.WriteAllText($"Wallet{lastC}Private.txt", sb_Private.ToString());
             Console.WriteLine($"运算完毕！");
             Console.ReadLine();
         }

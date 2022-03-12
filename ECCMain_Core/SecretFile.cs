@@ -14,8 +14,9 @@ namespace ECCMain
         {
             while (true)
             {
+
                 Console.WriteLine($"输入助记词！");
-                SHA256 sha256 = new SHA256Managed();
+                SHA256 sha256 =   SHA256.Create();
                 byte[] hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(Console.ReadLine()));
                 // var privateKey = HexToBigInteger.inputHex("e8d96a53e9c597e5a1e2ceaddd0b5ebe75588b26e71846b46a9b5f3666409355");
 
@@ -47,8 +48,8 @@ namespace ECCMain
                     Console.WriteLine($"压缩钱包地址为：{walletOfcompressed}");
                     var walletOfUncompressed = PublicKeyF.GetAddressOfUncompressed(publicKey);
                     Console.WriteLine($"非压缩钱包地址为：{walletOfUncompressed}");
-
-
+                    var walletOfP2SH = PublicKeyF.GetAddressOfP2SH(publicKey);
+                    Console.WriteLine($"P2SH钱包地址为：{walletOfP2SH}"); 
                 }
                 else
                 {
@@ -60,7 +61,7 @@ namespace ECCMain
                 {
                     break;
                 }
-            }
+            } 
 
 
             //Console.WriteLine($"您的非私钥为80{HexToBigInteger.bigIntergetToHex(publicKey[0])}01");
