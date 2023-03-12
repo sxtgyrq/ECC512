@@ -1,0 +1,33 @@
+
+const bitcoinjs = require('bitcoinjs-lib')
+let network = bitcoinjs.networks.testnet
+let OP_INT_BASE = bitcoinjs.opcodes.OP_RESERVED
+let output = bitcoinjs.script.compile([].concat(
+    bitcoinjs.opcodes.OP_ADD,
+    OP_INT_BASE + 5,
+    bitcoinjs.opcodes.OP_EQUAL))
+const p2wsh = bitcoinjs.payments.p2wsh({ redeem: { output: output, network: network }, network: network })
+const p2wshInP2sh = bitcoinjs.payments.p2sh({ redeem: p2wsh, network: network })
+console.log(p2wshInP2sh.address)
+const p2sh = bitcoinjs.payments.p2sh({ redeem: { output: output, network: network }, network: network })
+console.log(p2sh.address)
+
+let transactionBuilder = new bitcoinjs.TransactionBuilder(network)
+
+transactionBuilder.addOutput("2MsVQkDHmP6QBZouY6p8SeGjETnyoddt1D9", 1000)
+transactionBuilder.addInput("b5b3efcf397505cfa55a7c0607deb067429d74c73969e917fe48c061101f61d3", 0)
+transactionBuilder.addInput("f9ea94ac11d3f2873fbb2dc28267f0387e1aac020aac1247211581bcb21df6a5", 0)
+let tx = transactionBuilder.buildIncomplete()
+
+let scriptSigForP2WSHInP2SH = bitcoinjs.script.compile([p2wsh.output])
+
+let scriptSigForSimpleP2SH = bitcoinjs.script.compile([OP_INT_BASE + 2, OP_INT_BASE + 3, p2sh.redeem.output])
+
+let witnessStackForP2WSHInP2SH = [Buffer.from('02', 'hex'), Buffer.from('03', 'hex'), p2wsh.redeem.output]
+
+tx.setInputScript(0, scriptSigForP2WSHInP2SH)
+tx.setWitness(0, witnessStackForP2WSHInP2SH)
+
+tx.setInputScript(1, scriptSigForSimpleP2SH)
+
+console.log(tx.toHex())

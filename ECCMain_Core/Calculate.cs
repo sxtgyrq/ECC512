@@ -220,7 +220,7 @@ namespace ECCMain
                 int remainder = (int)(intData % 58);
                 intData /= 58;
                 result = Digits[remainder] + result;
-            } 
+            }
             return result;
         }
 
@@ -247,7 +247,7 @@ namespace ECCMain
             // throw new Exception("");
             if (((point_P[0] - point_Q[0]) % Secp256k1.p).IsZero)
             {
-                if ((point_P[1] - point_Q[1] % Secp256k1.p).IsZero)
+                if (((point_P[1] - point_Q[1]) % Secp256k1.p).IsZero)
                 {
                     return getDoubleP(point_P, out isZero);
                 }
@@ -321,6 +321,17 @@ namespace ECCMain
                     Yr += Secp256k1.p;
                 }
                 isZero = false;
+
+                if (CheckXYIsRight(Xr, Yr))
+                {
+                    // Console.WriteLine("Check is right!");
+                }
+                else
+                {
+                    Console.WriteLine("Check is wrong!");
+                    Console.ReadLine();
+                    throw new Exception("Check is wrong!");
+                }
                 return new BigInteger[] { Xr, Yr };
             }
         }

@@ -21,8 +21,15 @@ namespace ConsoleApp1
             {
                 Console.WriteLine("此程序采用Secp256k1，加密算法，用于文件加密、解密、比特币交易等程序！");
                 Console.WriteLine("G查看！S,加密；D解密；CHECKONLY；SIGN；GENERATE50000ADDRESS");
+                Console.WriteLine("CLTV,生成OP_CHECKLOCKTIMEVERIFY 地址");
+                Console.WriteLine("CLTV_COST,花掉协议");
                 var command = Console.ReadLine();
+                if (string.IsNullOrEmpty(command)) 
+                {
+                    command = "CLTV_TEST";
+                }
                 command = command.ToUpper();
+                
                 switch (command)
                 {
                     case "G":
@@ -89,10 +96,22 @@ namespace ConsoleApp1
                         {
                             CheckOnly.Check();
                         }; break;
-                    case "GENERATE50000ADDRESS": 
+                    case "GENERATE50000ADDRESS":
                         {
                             ECCMain.Produce10000.Produce10000F();
-                        };break;
+                        }; break;
+                    case "CLTV":
+                        {
+                            ECCMain.CLTV.CLTVF();
+                        }; break;
+                    case "CLTV_COST":
+                        {
+                            ECCMain.CLTV.Cost();
+                        }; break;
+                    case "CLTV_TEST":
+                        {
+                            ECCMain.CLTV.Test();
+                        }; break;
                     default:
                         {
 
