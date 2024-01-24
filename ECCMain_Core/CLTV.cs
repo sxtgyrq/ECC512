@@ -123,7 +123,7 @@ namespace ECCMain
             }
             else return;
             string privateKeyStr = inputValue;
-
+            Console.WriteLine($"https://blockchain.info/q/getblockcount  可以获得当前区块值");
             Console.WriteLine($"请输入 locktime 的值");
             inputValue = Console.ReadLine();
             if (inputValue != null)

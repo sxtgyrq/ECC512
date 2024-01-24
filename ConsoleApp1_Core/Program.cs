@@ -21,15 +21,15 @@ namespace ConsoleApp1
             {
                 Console.WriteLine("此程序采用Secp256k1，加密算法，用于文件加密、解密、比特币交易等程序！");
                 Console.WriteLine("G查看！S,加密；D解密；CHECKONLY；SIGN；GENERATE50000ADDRESS");
-                Console.WriteLine("CLTV,生成OP_CHECKLOCKTIMEVERIFY 地址");
-                Console.WriteLine("CLTV_COST,花掉协议");
+                // Console.WriteLine("CLTV_ADDR,生成OP_CHECKLOCKTIMEVERIFY 地址");
+                Console.WriteLine("CLTV_ADDR,花掉协议");
                 var command = Console.ReadLine();
-                if (string.IsNullOrEmpty(command)) 
+                if (string.IsNullOrEmpty(command))
                 {
                     command = "CLTV_TEST";
                 }
                 command = command.ToUpper();
-                
+
                 switch (command)
                 {
                     case "G":
@@ -78,7 +78,7 @@ namespace ConsoleApp1
                             var b = "啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊140啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊140";
                             var c = ECCMain.Sign.verify_message(a, b, 0);
                             Console.WriteLine($"{c}");
-                            Console.WriteLine(ECCMain.Sign.verify_message(Console.ReadLine(), Console.ReadLine(), 0));
+                            Console.WriteLine(ECCMain.Sign.verify_message(Console.ReadLine(), Console.ReadLine(), 1));
                         }; break;
                     //case "N":
                     //    {
@@ -104,7 +104,7 @@ namespace ConsoleApp1
                         {
                             ECCMain.CLTV.CLTVF();
                         }; break;
-                    case "CLTV_COST":
+                    case "CLTV_ADDR":
                         {
                             ECCMain.CLTV.Cost();
                         }; break;

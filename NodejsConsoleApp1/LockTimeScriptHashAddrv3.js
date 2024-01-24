@@ -2,26 +2,24 @@
 
 //const { Buffer } = require('bitcoinjs-lib/src/types');
 
-const LockTimeScriptHashApprMainNet=
+const LockTimeScriptHashApprMainNet =
 {
-    netWork:function()
-    {
+    netWork: function () {
         const TinySecp256k1Interface = require('tiny-secp256k1');
-        const ECPairFactory  = require('ecpair');
-        const bitcoin=require('bitcoinjs-lib') ;
-        const ECPair =ECPairFactory.ECPairFactory(TinySecp256k1Interface);
-        const network = ECPairFactory.networks.bitcoin;   
+        const ECPairFactory = require('ecpair');
+        const bitcoin = require('bitcoinjs-lib');
+        const ECPair = ECPairFactory.ECPairFactory(TinySecp256k1Interface);
+        const network = ECPairFactory.networks.bitcoin;
         return network;
-    }, 
-    generateTranstraction:function(wifStr,redeemScriptHex)
-    {
+    },
+    generateTranstraction: function (wifStr, redeemScriptHex) {
         const bitcoin = require('bitcoinjs-lib');
         const network = LockTimeScriptHashApprMainNet.netWork(); // 对于测试网使用 bitcoin.networks.testnet
 
 
         const TinySecp256k1Interface = require('tiny-secp256k1');
-        const ECPairFactory  = require('ecpair');
-        const ECPair =ECPairFactory.ECPairFactory(TinySecp256k1Interface);
+        const ECPairFactory = require('ecpair');
+        const ECPair = ECPairFactory.ECPairFactory(TinySecp256k1Interface);
 
         // const alice = ECPair.fromWIF(
         //   wifStr,
@@ -31,82 +29,82 @@ const LockTimeScriptHashApprMainNet=
         //const lockTime = bip65.encode({ utc: utcNow() - 3600 * 3 });
         const redeemScript = Buffer.from(redeemScriptHex, 'hex');
         const { address } = bitcoin.payments.p2sh({
-          redeem: { output: redeemScript, network: network },
-          network: network,
+            redeem: { output: redeemScript, network: network },
+            network: network,
         });
-  
+        console.log('address', address);
         // fund the P2SH(CLTV) address
-       //const unspent = await regtestUtils.faucet(address!, 1e5);
-        
+        //const unspent = await regtestUtils.faucet(address!, 1e5);
+
         //tx.setInputScript(0, redeemScriptSig!); 
         const privateKey = ECPair.fromWIF(wifStr, network);
         const utxos = [
-          { // 可能需要多个UTXO
-            txId: 'b65f1184c2ff7dc262942513a4f85774c91951d8e0b05cbece8bab27fae85da5',
-            vout: 0,
-            value: 10000 , //satoshi
-          }];
-        const destinationAddress = '1APMnP2awYDhvarL1YRvFDUMGpgEAJBq8E';
+            { // 可能需要多个UTXO
+                txId: 'f66a1d8e68cff90b790252c0788cbbe137c8ecda5fe70822fc9cebe96c0c11b5',
+                vout: 1,
+                value: 2000000, //satoshi
+            }];
+        const destinationAddress = '3Qd5tZHQJtRhtfzMqD8XMVR5aYxxbkQ7wi';
         //const fee = 5500;
 
-// 创建一个新的PSBT（Partially Signed Bitcoin Transaction）
-        let psbt = new bitcoin. Psbt({ network: network });
+        // 创建一个新的PSBT（Partially Signed Bitcoin Transaction）
+        let psbt = new bitcoin.Psbt({ network: network });
         //psbt.locktime=820001;
 
-// 添加UTXOs
-          utxos.forEach(utxo => {
+        // 添加UTXOs
+        utxos.forEach(utxo => {
             psbt.addInput({
-              hash: utxo.txId,
-              index: utxo.vout,
-              sequence: 0xfffffffe,//sequence 字段是一个 32 位的数字，当您想要使用交易的 nLockTime 特性时，必须将输入的 sequence 数值设置为小于 0xffffffff（即 4294967295）。如果 sequence 设置为 0xffffffff，将会禁用 nLockTime 功能。
-              nonWitnessUtxo: Buffer.from('02000000000101e686a9343a72c0eb2621550090d1a1fdae3a9b8896bf6f939cc187b2dc20e7750100000017160014bba4037a96cfec7d72e94ff4e8146028fe86fbb4fdffffff02102700000000000017a91454733dd9b8ff8b0678a0c7b21a3bad31f73b2be08786d26a000000000017a914002f8e7ec2299211ff56eef5b73e1b31c07b63c0870247304402200f0cd17809a3f7caa8157a7786239834a06f247f80a8c10c31d8e2a2a82f67b602202c673a6e01e14a6aa3816f3d358307d432cf6a0d00aaa6c8dcea647235abfcf60121039892e7f43284ba71c95743cc7ea7de064d8e1314845a9d6ea4b995ed7a88fe3d8c9d0c00', 'hex'),  //nonWitnessUtxo: Buffer.from('FULL_TRANSACTION_HEX_OF_UTXO', 'hex'),
-              redeemScript: redeemScript,
+                hash: utxo.txId,
+                index: utxo.vout,
+                sequence: 0xfffffffe,//sequence 字段是一个 32 位的数字，当您想要使用交易的 nLockTime 特性时，必须将输入的 sequence 数值设置为小于 0xffffffff（即 4294967295）。如果 sequence 设置为 0xffffffff，将会禁用 nLockTime 功能。
+                nonWitnessUtxo: Buffer.from('02000000000101a55de8fa27ab8bcebe5cb0e0d85119c97457f8a413259462c27dffc284115fb6010000001716001475dfe65572e5cdd2b3022b84be8b5546f4e26428fdffffff0362320f000000000017a91400324c2a936efe0787b1dd6686e29513e62b7bc68780841e000000000017a9140d8179055682ed14d4fe85e6ac2c9ee4c4e076688700093d000000000017a914fb8c8a24c34d1645059c4ae06d0af70ff0635dd0870247304402203513d288f2f78014800377dbd067bee3ac90b0f70e01fae00700270f4a0ffb6d022074259088ea2a23b964b46e36a6e308f58644add3c348a51e3b44808ffdbee9e301210393797bda27522c943ecd8c72b51025e2d1b686ae788e0719f916d61d4eddb5ea11a00c00', 'hex'),  //nonWitnessUtxo: Buffer.from('FULL_TRANSACTION_HEX_OF_UTXO', 'hex'),
+                redeemScript: redeemScript,
             });
-          });
-
-// 添加输出（接收地址和金额）
+        });
+        //https://mempool.space/api/tx/f66a1d8e68cff90b790252c0788cbbe137c8ecda5fe70822fc9cebe96c0c11b5/hex  通过以上连接获取 nonWitnessUtxo
+        // 添加输出（接收地址和金额）
         const totalUtxoValue = utxos.reduce((acc, utxo) => acc + utxo.value, 0);
         psbt.addOutput({
-          address: destinationAddress,
-          value: 4500, // 确保包含交易费
+            address: destinationAddress,
+            value: 1995000, // 确保包含交易费
         });
         psbt.setLocktime(826905);
 
-// 签名所有输入
+        // 签名所有输入
         utxos.forEach((_, index) => {
-          psbt.signInput(index, privateKey);
+            psbt.signInput(index, privateKey);
         });
-       
+
         // 手动完成输入的函数
         function finalizeInputFn(inputIndex, input, script, value) {
-          // 这里需要根据您的赎回脚本的具体逻辑来构建输入脚本
-          // 下面是一个基本的结构，您可能需要调整
-          const signature = input.partialSig[0].signature;
-          const pubkey = privateKey.publicKey;
-          const scriptSigChunks = [
-            signature,
-            pubkey,
-            redeemScript
-          ];
-          return {
-            finalScriptSig: bitcoin.script.compile(scriptSigChunks)
-          };
+            // 这里需要根据您的赎回脚本的具体逻辑来构建输入脚本
+            // 下面是一个基本的结构，您可能需要调整
+            const signature = input.partialSig[0].signature;
+            const pubkey = privateKey.publicKey;
+            const scriptSigChunks = [
+                signature,
+                pubkey,
+                redeemScript
+            ];
+            return {
+                finalScriptSig: bitcoin.script.compile(scriptSigChunks)
+            };
         }
         psbt.finalizeInput(0, finalizeInputFn);
 
-// 完成签名
-         // psbt.finalizeAllInputs();
+        // 完成签名
+        // psbt.finalizeAllInputs();
 
-// 获取交易的最终序列化形式
-          const rawTransaction = psbt.extractTransaction().toHex();
-          console.log('rawTransactionHex',rawTransaction);
-          return rawTransaction;
-    }, 
+        // 获取交易的最终序列化形式
+        const rawTransaction = psbt.extractTransaction().toHex();
+        console.log('rawTransactionHex', rawTransaction);
+        return rawTransaction;
+    },
 
 }
- 
 
-exports.LockTimeScriptHashApprMainNet =  LockTimeScriptHashApprMainNet; 
+
+exports.LockTimeScriptHashApprMainNet = LockTimeScriptHashApprMainNet;
 
 // 在比特币交易中，每个输入都有一个名为 sequence 的字段。这个字段最初被设计用于实现未来的交易替换功能，但随着时间的发展，它的用途已经扩展，尤其是在引入比特币协议的某些更新后，比如 BIP 68 和 BIP 125。下面是 sequence 字段的一些主要功能：
 

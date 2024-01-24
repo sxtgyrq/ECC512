@@ -307,7 +307,7 @@ namespace ECCMain
                 }
                 else if (addrtype == 1)
                 {
-                    return PublicKeyF.GetAddressOfcompressed(Q);
+                    return $"{PublicKeyF.GetAddressOfcompressed(Q)}  {PublicKeyF.GetAddressOfP2SH(Q)}";
                 }
                 else
                 {
