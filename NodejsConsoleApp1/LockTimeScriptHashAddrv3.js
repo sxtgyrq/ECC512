@@ -44,6 +44,7 @@ const LockTimeScriptHashApprMainNet =
                 vout: 1,
                 value: 2000000, //satoshi
             }];
+        //f66a1d8e68cff90b790252c0788cbbe137c8ecda5fe70822fc9cebe96c0c11b5
         const destinationAddress = '3Qd5tZHQJtRhtfzMqD8XMVR5aYxxbkQ7wi';
         //const fee = 5500;
 
@@ -68,8 +69,10 @@ const LockTimeScriptHashApprMainNet =
             address: destinationAddress,
             value: 1995000, // 确保包含交易费
         });
-        psbt.setLocktime(826905);
+        psbt.setLocktime(884232);
+      //  psbt.setLocktime(826905);
 
+        //827419 
         // 签名所有输入
         utxos.forEach((_, index) => {
             psbt.signInput(index, privateKey);

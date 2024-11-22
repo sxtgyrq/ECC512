@@ -100,10 +100,6 @@ namespace ConsoleApp1
                         {
                             ECCMain.Produce10000.Produce10000F();
                         }; break;
-                    case "CLTV":
-                        {
-                            ECCMain.CLTV.CLTVF();
-                        }; break;
                     case "CLTV_ADDR":
                         {
                             ECCMain.CLTV.Cost();

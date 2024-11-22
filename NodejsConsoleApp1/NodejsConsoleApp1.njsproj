@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="Bitcoin P2SH.LOCKTIME.html" />
     <Content Include="GenerateScriptAddrInput.js">
       <SubType>Code</SubType>
     </Content>
