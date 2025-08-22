@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ECCMain
@@ -28,12 +29,20 @@ namespace ECCMain
             while (true)
             {
                 output($"拖入您的Base58编码的37位或38位的私钥的路径，用此私钥进行验证.即校验.txt");
-
+                output($"或者直接输入私钥");
                 var privateKeyOfSenderPath = input();
 
 
-
-                var privateKeyOfSender = LockAndKeyRead.Get(privateKeyOfSenderPath);
+                string privateKeyOfSender;
+                //^[5KL][1-9A-HJ-NP-Za-km-z]{50,51}$
+                if ((new Regex("^[5KL][1-9A-HJ-NP-Za-km-z]{50,51}$")).IsMatch(privateKeyOfSenderPath))
+                {
+                    privateKeyOfSender = privateKeyOfSenderPath;
+                }
+                else
+                {
+                    privateKeyOfSender = LockAndKeyRead.Get(privateKeyOfSenderPath);
+                }
                 System.Numerics.BigInteger privateBigInteger;
                 if (PrivateKeyF.Check(privateKeyOfSender, out privateBigInteger)) { }
                 else
@@ -43,8 +52,20 @@ namespace ECCMain
                 }
 
                 output("拖入您的输入目标的压缩公钥。即锁.txt");
+                output($"或者直接输入公钥");
+                //^(?:02|03)[0-9A-Fa-f]{64}$
+
+
                 var publicKeyPath = input();
-                var publicKey = LockAndKeyRead.Get(publicKeyPath);
+                string publicKey;
+                if ((new Regex("^(?:02|03)[0-9A-Fa-f]{64}$")).IsMatch(publicKeyPath))
+                {
+                    publicKey = publicKeyPath;
+                }
+                else
+                {
+                    publicKey = LockAndKeyRead.Get(publicKeyPath);
+                }
                 var pre = publicKey.Substring(0, 2);
                 if (publicKey.Substring(0, 2) == "02" || publicKey.Substring(0, 2) == "03")
                 {
@@ -142,7 +163,7 @@ namespace ECCMain
                                     output($"sM压缩失败！");
                                     return;
                                 }
-                                var infomationOfOriginalText = $"{ Hex.BytesToHex(sM)}";
+                                var infomationOfOriginalText = $"{Hex.BytesToHex(sM)}";
                                 System.Numerics.BigInteger r = Bytes32.ConvetToBigInteger(hash1);
                                 hash1 = sha256.ComputeHash(hash1);
                                 //  var 
@@ -180,7 +201,7 @@ namespace ECCMain
                                     output($"s2压缩失败！");
                                     return;
                                 }
-                                var infomationOfSecretText = $"{ Hex.BytesToHex(s1)}";
+                                var infomationOfSecretText = $"{Hex.BytesToHex(s1)}";
 
                                 //output($"{i}压缩公钥为{infomationOfSecretText}");
 
@@ -424,7 +445,7 @@ namespace ECCMain
                     }
                     else
                     {
-                        output($"{ HexToBigInteger.bigIntergetToHex(X) },{ HexToBigInteger.bigIntergetToHex(Y) }校验失败；");
+                        output($"{HexToBigInteger.bigIntergetToHex(X)},{HexToBigInteger.bigIntergetToHex(Y)}校验失败；");
                     }
                 }
                 else
@@ -548,7 +569,7 @@ namespace ECCMain
                                 output($"sM压缩失败！");
                                 return;
                             }
-                            var infomationOfOriginalText = $"{ Hex.BytesToHex(sM)}";
+                            var infomationOfOriginalText = $"{Hex.BytesToHex(sM)}";
                             System.Numerics.BigInteger r = Bytes32.ConvetToBigInteger(hash1);
                             hash1 = sha256.ComputeHash(hash1);
                             //  var 
@@ -586,7 +607,7 @@ namespace ECCMain
                                 output($"s2压缩失败！");
                                 return;
                             }
-                            var infomationOfSecretText = $"{ Hex.BytesToHex(s1)}";
+                            var infomationOfSecretText = $"{Hex.BytesToHex(s1)}";
 
                             //output($"{i}压缩公钥为{infomationOfSecretText}");
 
@@ -860,7 +881,7 @@ namespace ECCMain
                 }
                 else
                 {
-                    output($"{ HexToBigInteger.bigIntergetToHex(X) },{ HexToBigInteger.bigIntergetToHex(Y) }校验失败；");
+                    output($"{HexToBigInteger.bigIntergetToHex(X)},{HexToBigInteger.bigIntergetToHex(Y)}校验失败；");
                 }
             }
 
@@ -1405,7 +1426,7 @@ namespace ECCMain
                                     output($"sM压缩失败！");
                                     return;
                                 }
-                                var infomationOfOriginalText = $"{ Hex.BytesToHex(sM)}";
+                                var infomationOfOriginalText = $"{Hex.BytesToHex(sM)}";
                                 System.Numerics.BigInteger r = Bytes32.ConvetToBigInteger(hash1);
                                 hash1 = sha256.ComputeHash(hash1);
                                 //  var 
@@ -1443,7 +1464,7 @@ namespace ECCMain
                                     output($"s2压缩失败！");
                                     return;
                                 }
-                                var infomationOfSecretText = $"{ Hex.BytesToHex(s1)}";
+                                var infomationOfSecretText = $"{Hex.BytesToHex(s1)}";
 
                                 //output($"{i}压缩公钥为{infomationOfSecretText}");
 
@@ -1773,7 +1794,7 @@ namespace ECCMain
                     }
                     else
                     {
-                        output($"{ HexToBigInteger.bigIntergetToHex(X) },{ HexToBigInteger.bigIntergetToHex(Y) }校验失败；");
+                        output($"{HexToBigInteger.bigIntergetToHex(X)},{HexToBigInteger.bigIntergetToHex(Y)}校验失败；");
                     }
                 }
                 else
@@ -1953,7 +1974,7 @@ namespace ECCMain
                                     output($"sM压缩失败！");
                                     return;
                                 }
-                                var infomationOfOriginalText = $"{ Hex.BytesToHex(sM)}";
+                                var infomationOfOriginalText = $"{Hex.BytesToHex(sM)}";
                                 System.Numerics.BigInteger r = Bytes32.ConvetToBigInteger(hash1);
                                 hash1 = sha256.ComputeHash(hash1);
                                 //  var 
@@ -1991,7 +2012,7 @@ namespace ECCMain
                                     output($"s2压缩失败！");
                                     return;
                                 }
-                                var infomationOfSecretText = $"{ Hex.BytesToHex(s1)}";
+                                var infomationOfSecretText = $"{Hex.BytesToHex(s1)}";
 
                                 //output($"{i}压缩公钥为{infomationOfSecretText}");
 
@@ -2230,7 +2251,7 @@ namespace ECCMain
                     }
                     else
                     {
-                        output($"{ HexToBigInteger.bigIntergetToHex(X) },{ HexToBigInteger.bigIntergetToHex(Y) }校验失败；");
+                        output($"{HexToBigInteger.bigIntergetToHex(X)},{HexToBigInteger.bigIntergetToHex(Y)}校验失败；");
                     }
                 }
                 else
