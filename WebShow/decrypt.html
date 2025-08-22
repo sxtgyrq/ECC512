@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="jq/jquery-3.5.1.js"></script>
+</head>
+<body>
+    <!--<script src="signandverify_simple.js" type="module"></script>-->
+    <div>
+        <button id="generatePrivateKeyBtn">生成私钥</button>
+
+        <textarea id="privateKeyValue"></textarea>
+
+    </div>
+    <div>
+        <input id="fileInput" type="file" />
+        <button id="decryptBtn">解密</button>
+        <button id="downloadBtn">下载</button>
+    </div>
+    <div id="wrap">
+        <video id="player"
+               controls  
+               webkit-playsinline
+               preload="auto">
+            您的浏览器不支持 video 标签。
+        </video>
+        <div id="tapToPlay"><button>点击开始播放</button></div>
+    </div>
+    <div>
+        <textarea id="sysInfo"></textarea>
+    </div>
+    <script src="main.js" type="module"></script>
+</body>
+</html>
