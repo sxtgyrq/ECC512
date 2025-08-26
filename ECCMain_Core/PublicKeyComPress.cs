@@ -395,11 +395,15 @@ namespace ECCMain
                                     //byte[] addBlock = new byte[] { 0,0, 0, 0 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
                                     dealWithData(nFile, ref position, addBlockList.ToArray());
 
+                                    nFile.Dispose();
+                                    nFile.Close();
                                 }
                                 byte[] hashCode;
                                 using (FileStream nFile = new FileStream(outPutFilePath, FileMode.Open))
                                 {
                                     hashCode = sha256.ComputeHash(nFile);
+                                    nFile.Dispose();
+                                    nFile.Close();
                                 }
 
                                 using (FileStream nFile = new FileStream(outPutFilePath, FileMode.Open))
@@ -431,6 +435,9 @@ namespace ECCMain
                                     }
 
                                     dealWithData(nFile, ref position, sSender);
+
+                                    nFile.Dispose();
+                                    nFile.Close();
                                 }
 
                             }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ECCMain
@@ -275,7 +276,7 @@ namespace ECCMain
                             var remarkArray = new byte[remarkLength];
                             dealWithData(fs, ref position, remarkArray);
 
-                            Console.WriteLine($"{ UTF8Encoding.UTF8.GetString(remarkArray)}");
+                            Console.WriteLine($"{UTF8Encoding.UTF8.GetString(remarkArray)}");
 
 
                         }
@@ -283,9 +284,20 @@ namespace ECCMain
                         System.Numerics.BigInteger privateBigInteger;
                         {
                             Console.WriteLine(notifyMsg);
+                            Console.WriteLine("或直接输入私钥^[5KL][1-9A-HJ-NP-Za-km-z]{50,51}$");
+                            var input = Console.ReadLine();
 
-                            var privateKeyOfSender = LockAndKeyRead.Get(Console.ReadLine());
 
+                            string privateKeyOfSender;
+                            //^[5KL][1-9A-HJ-NP-Za-km-z]{50,51}$
+                            if ((new Regex("^[5KL][1-9A-HJ-NP-Za-km-z]{50,51}$")).IsMatch(input))
+                            {
+                                privateKeyOfSender = input;
+                            }
+                            else
+                            {
+                                privateKeyOfSender = LockAndKeyRead.Get(input);
+                            } 
                             if (PrivateKeyF.Check(privateKeyOfSender, out privateBigInteger)) { }
                             else
                             {
@@ -933,7 +945,7 @@ namespace ECCMain
                                     var remarkArray = new byte[remarkLength];
                                     dealWithData(fs, ref position, remarkArray);
 
-                                    Console.WriteLine($"{ UTF8Encoding.UTF8.GetString(remarkArray)}");
+                                    Console.WriteLine($"{UTF8Encoding.UTF8.GetString(remarkArray)}");
 
 
                                 }
@@ -1467,7 +1479,8 @@ namespace ECCMain
                                 }
                             }
 
-                        };
+                        }
+                        ;
 
                     }
                 }
@@ -1557,7 +1570,7 @@ namespace ECCMain
                         Array.Copy(bytes, position, remarkArray, 0, remarkLength);
                         position += remarkLength;
 
-                        Console.WriteLine($"{ UTF8Encoding.UTF8.GetString(remarkArray)}");
+                        Console.WriteLine($"{UTF8Encoding.UTF8.GetString(remarkArray)}");
                     }
                     System.Numerics.BigInteger privateBigInteger;
                     {

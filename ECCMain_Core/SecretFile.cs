@@ -32,7 +32,7 @@ namespace ECCMain
                     byte[] chechHash = Calculate.GetCheckSum(resultAdd);
                     resultAdd = Calculate.BiteSplitJoint(resultAdd, chechHash);
                     var privateKey1 = Calculate.Encode(resultAdd);
-                    Console.WriteLine($"您压缩后的私钥为{privateKey1}");
+                    Console.WriteLine($"您压缩后的私钥为 {privateKey1}");
                 }
                 {
                     var resultAdd = Calculate.BiteSplitJoint(new byte[] { 0x80 }, privateByte);

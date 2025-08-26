@@ -20,7 +20,7 @@ namespace ConsoleApp1
             while (true)
             {
                 Console.WriteLine("此程序采用Secp256k1，加密算法，用于文件加密、解密、比特币交易等程序！");
-                Console.WriteLine("G查看！S,加密；D解密；CHECKONLY；SIGN；GENERATE50000ADDRESS");
+                Console.WriteLine("G查看！S,-加密；D解密；CHECKONLY；SIGN；GENERATE50000ADDRESS");
                 // Console.WriteLine("CLTV_ADDR,生成OP_CHECKLOCKTIMEVERIFY 地址");
                 Console.WriteLine("CLTV_ADDR,花掉协议");
                 var command = Console.ReadLine();
