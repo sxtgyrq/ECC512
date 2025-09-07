@@ -134,5 +134,24 @@ namespace ECCMain
 
             return Calculate.Encode(step6);
         }
+
+
+        public static string GetPublicKeyOfcompressed(BigInteger[] publicKey, bool show)
+        {
+            var publicKeyArray1 = HexToByteArray.BigIntegerTo32ByteArray(publicKey[0]);
+            HexToByteArray.ChangeDirection(ref publicKeyArray1);
+            // var publicKeyArray2 = HexToByteArray.BigIntegerTo32ByteArray(publicKey[1]);
+
+            byte[] resultAdd;
+            if (publicKey[1].IsEven)
+                resultAdd = Calculate.BiteSplitJoint(new byte[] { 0x02 }, publicKeyArray1);
+            else
+                resultAdd = Calculate.BiteSplitJoint(new byte[] { 0x03 }, publicKeyArray1);
+
+            if (show)
+                Console.WriteLine($"压缩公钥为{Hex.BytesToHex(resultAdd)}");
+
+            return Hex.BytesToHex(resultAdd); 
+        }
     }
 }
