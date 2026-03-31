@@ -144,7 +144,7 @@ namespace ECCMain
                         }
 
                         //   Console.WriteLine($"{ HexToBigInteger.bigIntergetToHex(X) },{ HexToBigInteger.bigIntergetToHex(Y) }校验成功；");
-                        SHA256 sha256 = new SHA256Managed();
+                        SHA256 sha256 = SHA256.Create();// SHA256Managed();
 
                         output($"输入一个随机数");
                         var xx = input() + DateTime.Now.ToString();
